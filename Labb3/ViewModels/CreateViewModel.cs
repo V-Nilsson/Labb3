@@ -184,7 +184,8 @@ namespace Labb3.ViewModels
 
         public CreateViewModel()
         {
-            LoadMyCollection();
+            //LoadMyCollection();
+            LoadQuizzesAsync();
             AddQuestionCommand = new AddQuestionCommand(this);
             CreateQuizCommand = new CreateNewQuizCommand(this);
             SaveQuizCommand = new SaveQuizCommand(this);

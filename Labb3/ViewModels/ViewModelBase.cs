@@ -13,7 +13,6 @@ namespace Labb3.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        //public ObservableCollection<Question> QuestionsToAdd { get; set; }
 
         public ObservableCollection<Quiz> AllQuizzes { get; set; }
 
@@ -31,25 +30,22 @@ namespace Labb3.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Temporary method to hardcode a quiz to test with
-        public void LoadMyCollection()
+        public ViewModelBase()
         {
-            //QuestionsToAdd = new ObservableCollection<Question>();
             AllQuizzes = new ObservableCollection<Quiz>();
-            
-
-            //AllQuizzes = allQuizzes;
-
-            LoadQuizAsync();
-            //LoadQuiz();
-
-            // SaveQuizAsync();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        //public void LoadMyCollection()
+        //{
+        //    AllQuizzes = new ObservableCollection<Quiz>();
+            
+        //    LoadQuizzesAsync();
+        //}
+
         // Finds available quizzes in the appdata\local folder
-        public async Task LoadQuizAsync()
+        public async Task LoadQuizzesAsync()
         {
             // Gets the path to AppData
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

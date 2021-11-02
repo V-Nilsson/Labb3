@@ -86,10 +86,9 @@ namespace Labb3.ViewModels
 
         public PlayViewModel()
         {
-            LoadMyCollection();
-            //ActiveQuiz = new Quiz();
-            //SetActiveQuiz();
-            //CurrentQuestion = ActiveQuiz.GetRandomQuestion();
+            // LoadMyCollection();
+            // AllQuizzes = new ObservableCollection<Quiz>();
+            LoadQuizzesAsync();
             Score = 0;
             AnsweredQuestions = 0;
             SubmitAnswerCommand = new SubmitAnswerCommand(this);
@@ -119,27 +118,18 @@ namespace Labb3.ViewModels
             }
 
             AnsweredQuestions++;
-            double placeholderCorrect = ((double) Score / (double) AnsweredQuestions) * 100;
-            CorrectPercentage = Math.Round(placeholderCorrect,0).ToString() + "%";
+            double correctAnswersDouble = ((double) Score / (double) AnsweredQuestions) * 100;
+            CorrectPercentage = Math.Round(correctAnswersDouble, 0).ToString() + "%";
 
-            // Test för att få unika frågor
-            // ActiveQuiz.Questions.Remove(CurrentQuestion);
-
-            // Earlier in if statement: ActiveQuiz.Questions.Count == 0
-
+            
             if (AnsweredQuestions >= ActiveQuiz.Questions.Count)
             {
                 CurrentQuestion = null;
                 FinishedAQuiz = true;
                 FinishedTheQuiz = $"Congratulations, you finished the quiz! You scored {Score} out of {AnsweredQuestions}";
-                Score = 0;
-                AnsweredQuestions = 0;
+                //Score = 0;
+                //AnsweredQuestions = 0;
             }
-            // We get an error on GetRandomQuestion with only 1 question left, and since there is only 1 we can assign it here
-            //else if (ActiveQuiz.Questions.Count == 1)
-            //{
-            //    CurrentQuestion = ActiveQuiz.Questions.ElementAt(0);
-            //}
             else
             {
                 CurrentQuestion = ActiveQuiz.GetRandomQuestion();
@@ -163,6 +153,9 @@ namespace Labb3.ViewModels
         {
             ActiveQuiz = SelectedQuiz;
             ActiveQuiz.AskedQuestions = new List<int>();
+            Score = 0;
+            AnsweredQuestions = 0;
+            CorrectPercentage = String.Empty;
         }
 
         private Quiz _selectedQuiz;
