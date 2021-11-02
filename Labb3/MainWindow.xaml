@@ -1,0 +1,29 @@
+﻿<Window x:Class="Labb3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb3"
+        xmlns:views="clr-namespace:Labb3.Views"
+        mc:Ignorable="d"
+        Title="VictorsQuiz" Height="450" Width="800">
+
+    <Grid>
+        <TabControl>
+
+            <TabItem Header="Start">
+                <views:StartView x:Name="StartView"/>
+            </TabItem>
+
+            <TabItem Header="Play">
+                <views:PlayView  x:Name="PlayView"/>
+            </TabItem>
+            <TabItem Header="Edit">
+                <views:EditView x:Name="EditView" />
+            </TabItem>
+            <TabItem Header="Create">
+                <views:CreateView x:Name="CreateView" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -1,0 +1,49 @@
+﻿<UserControl
+    x:Class="Labb3.Views.EditView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Labb3.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel Background="Gray">
+            <TextBlock Text="Choose what quiz to edit" FontSize="20" Margin="5,15,5,5"></TextBlock>
+            <ComboBox
+                x:Name="FirstComboBox"
+                Width="400"
+                ItemsSource="{Binding AllQuizzes}"
+                SelectedItem="{Binding QuizToEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Text="Choose the question to edit" FontSize="20"></TextBlock>
+            <ComboBox
+                Width="400"
+                ItemsSource="{Binding QuizToEdit.Questions}"
+                SelectedItem="{Binding QuestionToEdit}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Statement}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBox Text="{Binding QuestionToEdit.Statement, Mode=TwoWay}"></TextBox>
+            <TextBox Text="{Binding QuestionToEdit.Answers[0], Mode=TwoWay}"></TextBox>
+            <TextBox Text="{Binding QuestionToEdit.Answers[1], Mode=TwoWay}"></TextBox>
+            <TextBox Text="{Binding QuestionToEdit.Answers[2], Mode=TwoWay}"></TextBox>
+            <TextBox Text="{Binding QuestionToEdit.Answers[3], Mode=TwoWay}"></TextBox>
+
+            <Button Content="Save" Command="{Binding SaveEditedQuizCommand}"/>
+
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

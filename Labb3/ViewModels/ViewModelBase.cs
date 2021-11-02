@@ -1,0 +1,195 @@
+﻿using Labb3.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace Labb3.ViewModels
+{
+    public class ViewModelBase : INotifyPropertyChanged
+    {
+        //public ObservableCollection<Question> QuestionsToAdd { get; set; }
+
+        public ObservableCollection<Quiz> AllQuizzes { get; set; }
+
+        public Quiz ActiveQuiz { get; set; }
+
+        private Question _currentQuestion;
+
+        public Question CurrentQuestion
+        {
+            get { return _currentQuestion; }
+            set
+            {
+                _currentQuestion = value;
+                OnPropertyChanged(nameof(CurrentQuestion));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Temporary method to hardcode a quiz to test with
+        public void LoadMyCollection()
+        {
+            //QuestionsToAdd = new ObservableCollection<Question>();
+            AllQuizzes = new ObservableCollection<Quiz>();
+            
+
+            //AllQuizzes = allQuizzes;
+
+            LoadQuizAsync();
+            //LoadQuiz();
+
+            // SaveQuizAsync();
+        }
+
+        // Finds available quizzes in the appdata\local folder
+        public async Task LoadQuizAsync()
+        {
+            // Gets the path to AppData
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            // path += "\\VictorsQuiz\\MyTestQuiz.csv";
+            path += "\\VictorsQuiz";
+
+            // If the folder for quizzes does not exist we can exit the method here
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
+            string[] savedQuizzes = Directory.GetFiles(path);
+
+            await Task.Run(() =>
+            {
+                foreach (var quiz in savedQuizzes)
+                {
+                    using (var reader = new StreamReader(quiz))
+                    {
+                        var questionsToAdd = new ObservableCollection<Question>();
+                        string line = string.Empty;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            var testing = line.Split(",");
+                            string statement = testing[0];
+                            string[] answers = testing[1].Split("¤");
+                            int correctAnswer = int.Parse(testing[2]);
+                            Question question = new Question(statement, answers, correctAnswer);
+                            questionsToAdd.Add(question);
+                        }
+
+                        string title = quiz.Split("\\").Last();
+                        title = title.Remove(title.Length - 4);
+                        Quiz loadedQuiz = new Quiz(questionsToAdd, title);
+                        AllQuizzes.Add(loadedQuiz);
+                    }
+                }
+            });
+        }
+
+        private void ReadFiles()
+        {
+            // Gets the path to AppData
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            // path += "\\VictorsQuiz\\MyTestQuiz.csv";
+            path += "\\VictorsQuiz";
+
+            // If the folder for quizzes does not exist we can exit the method here
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
+            string[] savedQuizzes = Directory.GetFiles(path);
+
+            foreach (var quiz in savedQuizzes)
+            {
+                using (var reader = new StreamReader(quiz))
+                {
+                    var questionsToAdd = new ObservableCollection<Question>();
+                    string line = string.Empty;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var testing = line.Split(",");
+                        string statement = testing[0];
+                        string[] answers = testing[1].Split("¤");
+                        int correctAnswer = int.Parse(testing[2]);
+                        Question question = new Question(statement, answers, correctAnswer);
+                        questionsToAdd.Add(question);
+                    }
+
+                    string title = quiz.Split("\\").Last();
+                    title = title.Remove(title.Length - 4);
+                    Quiz loadedQuiz = new Quiz(questionsToAdd, title);
+                    AllQuizzes.Add(loadedQuiz);
+                }
+            }
+        }
+
+        
+        // TODO Ska göra asynkron
+        public void SaveQuizAsync(Quiz quiz)
+        {
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            path += "\\VictorsQuiz\\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            path += quiz.Title + ".csv";
+            
+
+            using (var writer = new StreamWriter(path))
+            {
+                foreach (var question in quiz.Questions)
+                {
+                    string answers = "";
+                    foreach (var answer in question.Answers)
+                    {
+                        answers += answer + "¤";
+                    }
+
+                    answers = answers.Remove(answers.Length - 1);
+
+                    writer.WriteLine($"{question.Statement},{answers},{question.CorrectAnswer}");
+                }
+            }
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private Quiz _quizToEdit;
+
+        public Quiz QuizToEdit
+        {
+            get { return _quizToEdit; }
+            set
+            {
+                _quizToEdit = value;
+                OnPropertyChanged(nameof(QuizToEdit));
+            }
+        }
+
+        private Question _questionToEdit;
+
+        public Question QuestionToEdit
+        {
+            get { return _questionToEdit; }
+            set
+            {
+                _questionToEdit = value;
+                OnPropertyChanged(nameof(QuestionToEdit));
+            }
+        }
+
+        
+    }
+}
