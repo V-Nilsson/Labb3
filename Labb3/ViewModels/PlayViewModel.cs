@@ -127,8 +127,6 @@ namespace Labb3.ViewModels
                 CurrentQuestion = null;
                 FinishedAQuiz = true;
                 FinishedTheQuiz = $"Congratulations, you finished the quiz! You scored {Score} out of {AnsweredQuestions}";
-                //Score = 0;
-                //AnsweredQuestions = 0;
             }
             else
             {

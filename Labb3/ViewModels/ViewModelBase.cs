@@ -36,13 +36,6 @@ namespace Labb3.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        //public void LoadMyCollection()
-        //{
-        //    AllQuizzes = new ObservableCollection<Quiz>();
-            
-        //    LoadQuizzesAsync();
-        //}
 
         // Finds available quizzes in the appdata\local folder
         public async Task LoadQuizzesAsync()
