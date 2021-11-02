@@ -90,49 +90,8 @@ namespace Labb3.ViewModels
                 }
             });
         }
-
-        private void ReadFiles()
-        {
-            // Gets the path to AppData
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            // path += "\\VictorsQuiz\\MyTestQuiz.csv";
-            path += "\\VictorsQuiz";
-
-            // If the folder for quizzes does not exist we can exit the method here
-            if (!Directory.Exists(path))
-            {
-                return;
-            }
-
-            string[] savedQuizzes = Directory.GetFiles(path);
-
-            foreach (var quiz in savedQuizzes)
-            {
-                using (var reader = new StreamReader(quiz))
-                {
-                    var questionsToAdd = new ObservableCollection<Question>();
-                    string line = string.Empty;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        var testing = line.Split(",");
-                        string statement = testing[0];
-                        string[] answers = testing[1].Split("¤");
-                        int correctAnswer = int.Parse(testing[2]);
-                        Question question = new Question(statement, answers, correctAnswer);
-                        questionsToAdd.Add(question);
-                    }
-
-                    string title = quiz.Split("\\").Last();
-                    title = title.Remove(title.Length - 4);
-                    Quiz loadedQuiz = new Quiz(questionsToAdd, title);
-                    AllQuizzes.Add(loadedQuiz);
-                }
-            }
-        }
-
         
-        // TODO Ska göra asynkron
-        public void SaveQuizAsync(Quiz quiz)
+        public async Task SaveQuizAsync(Quiz quiz)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             path += "\\VictorsQuiz\\";
@@ -142,23 +101,25 @@ namespace Labb3.ViewModels
             }
 
             path += quiz.Title + ".csv";
-            
 
-            using (var writer = new StreamWriter(path))
+            await Task.Run(() =>
             {
-                foreach (var question in quiz.Questions)
+
+                using (var writer = new StreamWriter(path))
                 {
-                    string answers = "";
-                    foreach (var answer in question.Answers)
+                    foreach (var question in quiz.Questions)
                     {
-                        answers += answer + "¤";
+                        string answers = "";
+                        foreach (var answer in question.Answers)
+                        {
+                            answers += answer + "¤";
+                        }
+                        answers = answers.Remove(answers.Length - 1);
+
+                        writer.WriteLine($"{question.Statement},{answers},{question.CorrectAnswer}");
                     }
-
-                    answers = answers.Remove(answers.Length - 1);
-
-                    writer.WriteLine($"{question.Statement},{answers},{question.CorrectAnswer}");
                 }
-            }
+            });
         }
 
         protected void OnPropertyChanged(string propertyName)
