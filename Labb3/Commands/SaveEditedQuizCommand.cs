@@ -21,7 +21,7 @@ namespace Labb3.Commands
         {
             if (_playViewModel.QuizToEdit == null)
             {
-                MessageBox.Show("Nope cant do that!");
+                MessageBox.Show("You must select a Quiz to edit before you can save");
                 return;
             }
 

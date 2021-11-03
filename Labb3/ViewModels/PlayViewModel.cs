@@ -89,8 +89,8 @@ namespace Labb3.ViewModels
             // LoadMyCollection();
             // AllQuizzes = new ObservableCollection<Quiz>();
             LoadQuizzesAsync();
-            Score = 0;
-            AnsweredQuestions = 0;
+            //Score = 0;
+            //AnsweredQuestions = 0;
             SubmitAnswerCommand = new SubmitAnswerCommand(this);
             SetActiveQuizCommand = new SetActiveQuizCommand(this);
             SaveEditedQuizCommand = new SaveEditedQuizCommand(this);
@@ -105,7 +105,7 @@ namespace Labb3.ViewModels
             set
             {
                 _finishedAQuiz = value;
-                OnPropertyChanged(nameof(FinishedAQuiz));
+                //OnPropertyChanged(nameof(FinishedAQuiz));
             }
         }
 
@@ -126,7 +126,8 @@ namespace Labb3.ViewModels
             {
                 CurrentQuestion = null;
                 FinishedAQuiz = true;
-                FinishedTheQuiz = $"Congratulations, you finished the quiz! You scored {Score} out of {AnsweredQuestions}";
+                FinishedTheQuiz = $"Congratulations, you finished the quiz! You scored {Score} out of {AnsweredQuestions} \r\n" +
+                                  $"To play again, switch to the Start tab and choose a Quiz";
             }
             else
             {

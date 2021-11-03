@@ -15,7 +15,7 @@ namespace Labb3.Models
 
         public string Title { get; }
 
-        public List<int> AskedQuestions { get; set; }
+        public List<int> AskedQuestions { get; }
 
         public Quiz(string title)
         {
