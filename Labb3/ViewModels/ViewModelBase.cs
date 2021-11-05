@@ -44,7 +44,7 @@ namespace Labb3.ViewModels
             // Gets the path to AppData
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             // path += "\\VictorsQuiz\\MyTestQuiz.csv";
-            path += "\\VictorsQuizTest";
+            path += "\\VictorsQuiz";
 
             // If the folder for quizzes does not exist we can exit the method here
             if (!Directory.Exists(path))
@@ -84,7 +84,7 @@ namespace Labb3.ViewModels
         public async Task SaveQuizAsync(Quiz quiz)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            path += "\\VictorsQuizTest\\";
+            path += "\\VictorsQuiz\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -144,9 +144,6 @@ namespace Labb3.ViewModels
                 //}
             }
             //});
-
-
-
         }
 
         public void LoadQuizAsJson()

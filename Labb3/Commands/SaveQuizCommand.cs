@@ -27,7 +27,7 @@ namespace Labb3.Commands
                 MessageBox.Show("You must enter a title and press Create Quiz before saving");
                 return;
             }
-            _playViewModel.SaveQuizAsync(_playViewModel.NewQuiz);
+            _ = _playViewModel.SaveQuizAsync(_playViewModel.NewQuiz);
             //_playViewModel.SaveQuizAsJson(_playViewModel.NewQuiz);
             MessageBox.Show("The Quiz was successfully saved!");
             _playViewModel.NewQuiz = new Quiz();

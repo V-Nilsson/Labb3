@@ -77,7 +77,7 @@ namespace Labb3.ViewModels
         public PlayViewModel()
         {
             // While we test Json loading:
-            LoadQuizzesAsync();
+            _ = LoadQuizzesAsync();
             // LoadQuizAsJson();
 
 
@@ -302,8 +302,7 @@ namespace Labb3.ViewModels
 
         public void AddNewQuestion()
         {
-            // if statement, answer 1- 3 is empty- error message! 
-            // TODO Can I clean this up a little? Ugly code right now
+            // if answer 1- 3 is empty- error message! 
             if (string.IsNullOrEmpty(InputStatement) || string.IsNullOrEmpty(InputAnswer1) || string.IsNullOrEmpty(InputAnswer2) || string.IsNullOrEmpty(InputAnswer3) || string.IsNullOrEmpty(InputCorrectAnswer))
             {
                 MessageBox.Show("Invalid input, something is missing. Please try again");
@@ -313,8 +312,8 @@ namespace Labb3.ViewModels
             string[] answers = new string[] { InputAnswer1, InputAnswer2, InputAnswer3, InputAnswer4 };
             
 
-            bool CorrectInput = int.TryParse(InputCorrectAnswer, out int result);
-            if (!CorrectInput || result > 4)
+            bool correctInput = int.TryParse(InputCorrectAnswer, out int result);
+            if (!correctInput || result > 4)
             {
                 MessageBox.Show("Invalid input. Correct Answer must be a number between 1 - 4.\r\n " +
                                 "Please change your input and press Add Question again");
