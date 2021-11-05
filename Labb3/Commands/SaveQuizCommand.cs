@@ -12,26 +12,28 @@ namespace Labb3.Commands
 {
     class SaveQuizCommand : Command
     {
-        private readonly CreateViewModel _createViewModel;
 
-        public SaveQuizCommand(CreateViewModel createViewModel)
+        private readonly PlayViewModel _playViewModel;
+
+        public SaveQuizCommand(PlayViewModel playViewModel)
         {
-            _createViewModel = createViewModel;
+            _playViewModel = playViewModel;
         }
-
 
         public override void Execute(object parameter)
         {
-            if (string.IsNullOrEmpty(_createViewModel.NewQuiz.Title))
+            if (string.IsNullOrEmpty(_playViewModel.NewQuiz.Title))
             {
                 MessageBox.Show("You must enter a title and press Create Quiz before saving");
                 return;
             }
-            _createViewModel.SaveQuizAsync(_createViewModel.NewQuiz);
+            _playViewModel.SaveQuizAsync(_playViewModel.NewQuiz);
+            //_playViewModel.SaveQuizAsJson(_playViewModel.NewQuiz);
             MessageBox.Show("The Quiz was successfully saved!");
-            _createViewModel.NewQuiz = new Quiz();
-            _createViewModel.TitleIsNotSet = true;
-            _createViewModel.InputTitle = string.Empty;
+            _playViewModel.NewQuiz = new Quiz();
+            _playViewModel.TitleIsNotSet = true;
+            _playViewModel.InputTitle = string.Empty;
         }
+
     }
 }

@@ -15,7 +15,7 @@ namespace Labb3.Models
 
         public string Title { get; }
 
-        public List<int> AskedQuestions { get; }
+        public List<int> AskedQuestions { get; set; }
 
         public Quiz(string title)
         {
@@ -40,10 +40,10 @@ namespace Labb3.Models
         {
             int randomIndex = 0;
             Random rnd = new Random();
-            randomIndex = rnd.Next(0, (Questions.Count));
+            randomIndex = rnd.Next(0, Questions.Count);
             while (AskedQuestions.Contains(randomIndex))
             {
-                randomIndex = rnd.Next(0, (Questions.Count));
+                randomIndex = rnd.Next(0, Questions.Count);
             }
             AskedQuestions.Add(randomIndex);
             return Questions.ElementAt(randomIndex);

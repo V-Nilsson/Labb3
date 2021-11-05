@@ -24,7 +24,7 @@ namespace Labb3.Views
         public CreateView()
         {
             InitializeComponent();
-            this.DataContext = new CreateViewModel();
+            // this.DataContext = new CreateViewModel();
         }
     }
 }

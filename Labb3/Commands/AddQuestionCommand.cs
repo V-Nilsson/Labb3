@@ -10,22 +10,18 @@ namespace Labb3.Commands
 {
     public class AddQuestionCommand : Command
     {
-        private readonly CreateViewModel _createViewModel;
 
-        public AddQuestionCommand(CreateViewModel createViewModel)
+        private readonly PlayViewModel _playViewModel;
+
+        public AddQuestionCommand(PlayViewModel playViewModel)
         {
-            _createViewModel = createViewModel;
+            _playViewModel = playViewModel;
         }
+
         public override void Execute(object parameter)
         {
-            _createViewModel.AddNewQuestion();
+            _playViewModel.AddNewQuestion();
         }
 
-        public override bool CanExecute(object parameter)
-        {
-            // return !string.IsNullOrEmpty(_createViewModel.InputStatement);
-
-            return true;
-        }
     }
 }

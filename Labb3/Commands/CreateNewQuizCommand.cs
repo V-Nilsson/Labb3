@@ -9,17 +9,17 @@ namespace Labb3.Commands
 {
     class CreateNewQuizCommand : Command
     {
-        private readonly CreateViewModel _createViewModel;
 
-        public CreateNewQuizCommand(CreateViewModel createViewModel)
+        private readonly PlayViewModel _playViewModel;
+
+        public CreateNewQuizCommand(PlayViewModel playViewModel)
         {
-            _createViewModel = createViewModel;
+            _playViewModel = playViewModel;
         }
 
         public override void Execute(object parameter)
         {
-            _createViewModel.CreateNewQuiz();
-            //_createViewModel.TitleIsNotSet = false;
+            _playViewModel.CreateNewQuiz();
         }
     }
 }

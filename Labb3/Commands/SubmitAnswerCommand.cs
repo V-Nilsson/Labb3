@@ -30,9 +30,7 @@ namespace Labb3.Commands
 
         public override bool CanExecute(object parameter)
         {
-            //return _playViewModel.CurrentQuestion != null;
             return !_playViewModel.FinishedAQuiz;
-            //return true;
         }
     }
 }

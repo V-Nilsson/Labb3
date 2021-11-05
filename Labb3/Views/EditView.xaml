@@ -34,7 +34,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-
+           
             <TextBox Text="{Binding QuestionToEdit.Statement, Mode=TwoWay}"></TextBox>
             <TextBox Text="{Binding QuestionToEdit.Answers[0], Mode=TwoWay}"></TextBox>
             <TextBox Text="{Binding QuestionToEdit.Answers[1], Mode=TwoWay}"></TextBox>
