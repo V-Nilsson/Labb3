@@ -25,7 +25,6 @@ namespace Labb3.Views
         public StartView()
         {
             InitializeComponent();
-          //  this.DataContext = new PlayViewModel();
         }
   
     }

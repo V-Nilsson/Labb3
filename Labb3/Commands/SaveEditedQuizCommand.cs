@@ -25,7 +25,7 @@ namespace Labb3.Commands
                 return;
             }
 
-            _playViewModel.SaveQuizAsync(_playViewModel.QuizToEdit);
+            _ = _playViewModel.SaveQuizAsync(_playViewModel.QuizToEdit);
             MessageBox.Show("The Quiz has been edited and saved!");
         }
     }

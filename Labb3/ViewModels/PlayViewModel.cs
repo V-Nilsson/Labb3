@@ -76,17 +76,12 @@ namespace Labb3.ViewModels
 
         public PlayViewModel()
         {
-            // While we test Json loading:
             _ = LoadQuizzesAsync();
-            // LoadQuizAsJson();
-
 
             SubmitAnswerCommand = new SubmitAnswerCommand(this);
             SetActiveQuizCommand = new SetActiveQuizCommand(this);
             SaveEditedQuizCommand = new SaveEditedQuizCommand(this);
             FinishedAQuiz = false;
-
-            // From CreateViewModel:
             AddQuestionCommand = new AddQuestionCommand(this);
             CreateQuizCommand = new CreateNewQuizCommand(this);
             SaveQuizCommand = new SaveQuizCommand(this);
@@ -102,7 +97,6 @@ namespace Labb3.ViewModels
             set
             {
                 _finishedAQuiz = value;
-                //OnPropertyChanged(nameof(FinishedAQuiz));
             }
         }
 
@@ -150,7 +144,7 @@ namespace Labb3.ViewModels
             ActiveQuiz.AskedQuestions = new List<int>();
             Score = 0;
             AnsweredQuestions = 0;
-            CorrectPercentage = String.Empty;
+            CorrectPercentage = string.Empty;
         }
 
         private Quiz _selectedQuiz;

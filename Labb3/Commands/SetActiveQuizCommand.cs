@@ -28,13 +28,9 @@ namespace Labb3.Commands
             _playViewModel.SetActiveQuiz();
             _playViewModel.SetStartQuestion();
             _playViewModel.FinishedAQuiz = false;
-            _playViewModel.FinishedTheQuiz = String.Empty;
+            _playViewModel.FinishedTheQuiz = string.Empty;
             MessageBox.Show("The quiz has been chosen, now switch to the play tab");
         }
 
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
     }
 }

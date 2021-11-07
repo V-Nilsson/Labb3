@@ -24,7 +24,6 @@ namespace Labb3.Views
         public EditView()
         {
             InitializeComponent();
-            //this.DataContext = new EditViewModel();
         }
     }
 }

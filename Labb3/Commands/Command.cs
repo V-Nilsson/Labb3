@@ -11,8 +11,7 @@ namespace Labb3.Commands
     {
        
         public event EventHandler CanExecuteChanged;
-
-        // Vi sätter CanExecute till true här, med möjligheten att ändra i klasserna som ärver
+        // Set CanExecute to true here, with the possibility to change in the inheriting classes
         public virtual bool CanExecute(object parameter)
         {
             return true;
@@ -20,8 +19,6 @@ namespace Labb3.Commands
 
         public abstract void Execute(object parameter);
 
-
-        // Taget från Singelton Sean, lite osäker på vad detta gör :|
         protected void OnCanExecutedChanged()
         {
             CanExecuteChanged?.Invoke(this, new EventArgs());

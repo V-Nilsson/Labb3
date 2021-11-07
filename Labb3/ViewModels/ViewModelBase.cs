@@ -38,7 +38,7 @@ namespace Labb3.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Finds available quizzes in the appdata\local folder
+        // Finds available quizzes in the appdata\local folder\VictorsQuiz
         public async Task LoadQuizzesAsync()
         {
             // Gets the path to AppData
@@ -109,93 +109,6 @@ namespace Labb3.ViewModels
                     }
                 }
             });
-        }
-
-        public void SaveQuizAsJson(Quiz quiz)
-        {
-            
-
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            path += "\\VictorsQuiz\\";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            path += quiz.Title + ".json";
-
-            //await Task.Run(() =>
-            //{
-            using (var writer = new StreamWriter(path))
-            { 
-                string jsontest = JsonSerializer.Serialize(quiz);
-
-                writer.WriteLine(jsontest);
-                //foreach (var question in quiz.Questions)
-                //{
-                //    string answers = "";
-                //    foreach (var answer in question.Answers)
-                //    {
-                //        answers += answer + "¤";
-                //    }
-                //    answers = answers.Remove(answers.Length - 1);
-
-                //    writer.WriteLine($"{question.Statement},{answers},{question.CorrectAnswer}");
-                //}
-            }
-            //});
-        }
-
-        public void LoadQuizAsJson()
-        {
-            // Quiz newQuiz = JsonSerializer.Deserialize<Quiz>(josntest);
-            // Gets the path to AppData
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            // path += "\\VictorsQuiz\\MyTestQuiz.csv";
-            path += "\\VictorsQuizTest";
-
-            // If the folder for quizzes does not exist we can exit the method here
-            if (!Directory.Exists(path))
-            {
-                return;
-            }
-
-            // TODO? Check the file endings?
-
-            string[] savedQuizzes = Directory.GetFiles(path);
-
-            //await Task.Run(() =>
-            foreach (var quiz in savedQuizzes)
-            {
-                using (var reader = new StreamReader(quiz))
-                {
-                    string line = reader.ReadLine();
-
-                    // string jsonString = File.ReadAllText(quiz);
-
-                    Quiz loadedQuiz = new Quiz();
-                    loadedQuiz = JsonSerializer.Deserialize<Quiz>(line);
-                    AllQuizzes.Add(loadedQuiz);
-
-
-                    //var questionsToAdd = new ObservableCollection<Question>();
-                    //string line = string.Empty;
-                    //while ((line = reader.ReadLine()) != null)
-                    //{
-                    //    var testing = line.Split(",");
-                    //    string statement = testing[0];
-                    //    string[] answers = testing[1].Split("¤");
-                    //    int correctAnswer = int.Parse(testing[2]);
-                    //    Question question = new Question(statement, answers, correctAnswer);
-                    //    questionsToAdd.Add(question);
-                    //}
-
-                    //string title = quiz.Split("\\").Last();
-                    //title = title.Remove(title.Length - 4);
-                    //Quiz loadedQuiz = new Quiz(questionsToAdd, title);
-                    //AllQuizzes.Add(loadedQuiz);
-                }
-            }
         }
 
         protected void OnPropertyChanged(string propertyName)

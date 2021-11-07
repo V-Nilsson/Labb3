@@ -28,7 +28,6 @@ namespace Labb3.Commands
                 return;
             }
             _ = _playViewModel.SaveQuizAsync(_playViewModel.NewQuiz);
-            //_playViewModel.SaveQuizAsJson(_playViewModel.NewQuiz);
             MessageBox.Show("The Quiz was successfully saved!");
             _playViewModel.NewQuiz = new Quiz();
             _playViewModel.TitleIsNotSet = true;
